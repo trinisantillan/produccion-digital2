@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: registro.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,14 +31,19 @@
         </label>
 
         <ul class="nav-menu">
-    <li><a href="index.html">Inicio</a></li> 
-    <li><a href="que.html">¿Qué es?</a></li>
-    <li><a href="cc.html">Ciencias Cognitivas</a></li>
-    <li><a href="estudio.html">Estudio y memoria</a></li>
-    <li><a href="preguntas.html" class="active">FAQ</a></li> 
-    <li><a href="quiz.html">Quiz</a></li>
-    <li><a href="registro.html">Iniciar sesión</a> </li>  
-</ul>
+            <li><a href="index.php">Inicio</a></li> 
+            <li><a href="que.php">¿Qué es?</a></li>
+            <li><a href="cc.php">Ciencias Cognitivas</a></li>
+            <li><a href="estudio.php">Estudio y memoria</a></li>
+            <li><a href="preguntas.php" class="active">FAQ</a></li> 
+            <li><a href="quiz.php">Quiz</a></li>
+            <?php if (isset($_SESSION['usuario'])): ?>
+                <li><a href="perfil.php" style="color: #64b5f6; font-weight: bold;">Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a></li>
+                <li><a href="logout.php" style="color: #ff7675;">Salir</a></li>
+            <?php else: ?>
+                <li><a href="login.php">Iniciar sesión</a></li>
+            <?php endif; ?>
+        </ul>
     </nav>
 </header>
 
@@ -55,7 +68,7 @@
                             <span class="flecha-faq">▼</span>
                         </summary>
                         <div class="respuesta-faq">
-                            <p><strong>Falso.</strong> Las técnicas de neuroimagen moderna demuestran que utilizamos el 100% de nuestro cerebro en redes neurales actives y sincronizadas de forma constante, incluso mientras dormimos.</p>
+                            <p><strong>Falso.</strong> Las técnicas de neuroimagen moderna demuestran que utilizamos el 100% de nuestro cerebro en redes neurales activas y sincronizadas de forma constante, incluso mientras dormimos.</p>
                         </div>
                     </details>
 
@@ -107,19 +120,21 @@
                     
                 </section>
 
-              <div class="contenedor-video-sinapsis">
-    <div class="reproductor-wrapper">
-        <iframe 
-            src="https://www.youtube.com/embed/5ReXvvVRNpk" 
-            title="¿Qué es la Sinapsis?" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-    </div>
-</div>
+                <div class="contenedor-video-sinapsis">
+                    <div class="reproductor-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/5ReXvvVRNpk" 
+                            title="¿Qué es la Sinapsis?" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
 
-            </div> <section class="seccion-semaforo" style="margin-top: 60px; margin-bottom: 40px;">
+            </div> 
+            
+            <section class="seccion-semaforo" style="margin-top: 60px; margin-bottom: 40px;">
                 <h2 style="text-align: center; color: #003662; margin-bottom: 10px;">🚦 Semáforo de Hábitos Corticales</h2>
                 <p style="text-align: center; color: #64748b; max-width: 600px; margin: 0 auto 40px auto; font-size: 0.95rem;">
                     ¿Cómo afectan tus rutinas diarias al rendimiento de tu cerebro? Revisá este mapa de acciones antes de arrancar tu jornada.
@@ -155,23 +170,23 @@
                 </div>
             </section>
 
-
             <section class="seccion-hacer-pregunta">
                 <h2>¿Tenés alguna otra duda?</h2>
                 <p>Dejanos tu consulta y nuestro equipo de ciencias cognitivas la va a responder a la brevedad.</p>
                 
-                <form class="formulario-pregunta">
+                <!-- Formulario conectado a procesar_pregunta.php -->
+                <form action="procesar_pregunta.php" method="POST" class="formulario-pregunta">
                     <div class="grupo-input">
                         <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" placeholder="Tu nombre" required>
+                        <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($_SESSION['nombre'] ?? ''); ?>" placeholder="Tu nombre" required>
                     </div>
                     <div class="grupo-input">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="tu@email.com" required>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($_SESSION['usuario'] ?? ''); ?>" placeholder="tu@email.com" required>
                     </div>
                     <div class="grupo-input">
                         <label for="mensaje">Tu pregunta</label>
-                        <textarea id="mensaje" rows="4" placeholder="Escribí tu duda neurocientífica acá..." required></textarea>
+                        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribí tu duda neurocientífica acá..." required></textarea>
                     </div>
                     <button type="submit" class="boton-enviar">Enviar pregunta</button>
                 </form>
@@ -181,24 +196,22 @@
     </div>
 
     <footer class="footer-principal">
-    <div class="contenedor-footer">
-        
-        <div class="contacto-footer">
-            <div class="linea-contacto">
-                <img src="imagenes/insta.png" alt="Instagram" class="icono-footer">
-                <span>@NeuroHabits</span>
-            </div>
-            <div class="linea-contacto">
-                <img src="imagenes/mail.png" alt="Email" class="icono-footer">
-                <span>neurohabits@gmail.com</span>
-            </div>
-            <div class="linea-contacto">
-                <img src="imagenes/tele.png" alt="Teléfono" class="icono-footer">
-                <span>+54 11 5555 1234</span>
+        <div class="contenedor-footer">
+            <div class="contacto-footer">
+                <div class="linea-contacto">
+                    <img src="imagenes/insta.png" alt="Instagram" class="icono-footer">
+                    <span>@NeuroHabits</span>
+                </div>
+                <div class="linea-contacto">
+                    <img src="imagenes/mail.png" alt="Email" class="icono-footer">
+                    <span>neurohabits@gmail.com</span>
+                </div>
+                <div class="linea-contacto">
+                    <img src="imagenes/tele.png" alt="Teléfono" class="icono-footer">
+                    <span>+54 11 5555 1234</span>
+                </div>
             </div>
         </div>
-
-    </div>
-</footer>
+    </footer>
 </body>
 </html>

@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: registro.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -23,13 +31,18 @@
         </label>
 
         <ul class="nav-menu">
-    <li><a href="index.html">Inicio</a></li> 
-    <li><a href="que.html">¿Qué es?</a></li>
-    <li><a href="cc.html">Ciencias Cognitivas</a></li>
-    <li><a href="estudio.html">Estudio y memoria</a></li>
-    <li><a href="preguntas.html">FAQ</a></li>
-    <li><a href="quiz.html" class="active">Quiz</a></li> 
-    <li><a href="registro.html">Iniciar sesión</a> </li>
+    <li><a href="index.php">Inicio</a></li> 
+    <li><a href="que.php">¿Qué es?</a></li>
+    <li><a href="cc.php">Ciencias Cognitivas</a></li>
+    <li><a href="estudio.php">Estudio y memoria</a></li>
+    <li><a href="preguntas.php">FAQ</a></li>
+    <li><a href="quiz.php" class="active">Quiz</a></li> 
+    <?php if (isset($_SESSION['usuario'])): ?>
+    <li><a href="perfil.php" style="color: #64b5f6; font-weight: bold;">Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a></li>
+    <li><a href="logout.php" style="color: #ff7675;">Salir</a></li>
+<?php else: ?>
+    <li><a href="login.php">Iniciar sesión</a></li>
+<?php endif; ?>
         </ul>
 
     </nav>
@@ -49,7 +62,6 @@
             <li><label><input type="radio" name="p1" value="b" data-correcta="true"> b) Atención</label></li>
             <li><label><input type="radio" name="p1" value="c" data-correcta="false"> c) Lenguaje</label></li>
         </ul>
-        <p class="feedback" id="feedback1"></p>
     </div>
 
     <div class="pregunta">
@@ -59,7 +71,6 @@
             <li><label><input type="radio" name="p2" value="b" data-correcta="false"> b) Porque el cerebro aumenta su tamaño físico</label></li>
             <li><label><input type="radio" name="p2" value="c" data-correcta="false"> c) Porque solo recordamos lo que soñamos</label></li>
         </ul>
-        <p class="feedback" id="feedback2"></p>
     </div>
 
     <div class="pregunta">
@@ -69,7 +80,6 @@
             <li><label><input type="radio" name="p3" value="b" data-correcta="false"> b) El dato se borra para dejar espacio a otros nuevos</label></li>
             <li><label><input type="radio" name="p3" value="c" data-correcta="true"> c) Se estimula la plasticidad y se fortalecen las conexiones neuronales</label></li>
         </ul>
-        <p class="feedback" id="feedback3"></p>
     </div>
 
     <div class="pregunta">
@@ -79,7 +89,6 @@
             <li><label><input type="radio" name="p4" value="b" data-correcta="true"> b) Limpiar la fatiga cognitiva y mejorar la concentración posterior</label></li>
             <li><label><input type="radio" name="p4" value="c" data-correcta="false"> c) Olvidar lo aprendido en el bloque anterior</label></li>
         </ul>
-        <p class="feedback" id="feedback4"></p>
     </div>
 
     <div class="pregunta">
@@ -88,8 +97,7 @@
             <li><label><input type="radio" name="p5" value="a" data-correcta="false"> a) El hemisferio derecho de forma exclusiva</label></li>
             <li><label><input type="radio" name="p5" value="b" data-correcta="false"> b) El hemisferio izquierdo de forma exclusiva</label></li>
             <li><label><input type="radio" name="p5" value="c" data-correcta="true"> c) Ninguno, la creatividad requiere que ambos hemisferios trabajen en conjunto</label></li>
-        </ul>
-        <p class="feedback" id="feedback5"></p>
+</ul>
     </div>
 
     <div class="pregunta">
@@ -99,7 +107,7 @@
             <li><label><input type="radio" name="p6" value="b" data-correcta="false"> b) Solo el 10%, el resto está inactivo esperando a ser desarrollado</label></li>
             <li><label><input type="radio" name="p6" value="c" data-correcta="false"> c) El 50%, dividido exactamente según la lógica o la intuición</label></li>
         </ul>
-        <p class="feedback" id="feedback6"></p>
+        
     </div>
 
     <div class="pregunta">
@@ -109,7 +117,7 @@
             <li><label><input type="radio" name="p7" value="b" data-correcta="false"> b) Porque el cerebro apaga temporalmente el hipocampo</label></li>
             <li><label><input type="radio" name="p7" value="c" data-correcta="true"> c) Porque la adenosina acumulada inunda de golpe los receptores que estaban bloqueados</label></li>
         </ul>
-        <p class="feedback" id="feedback7"></p>
+       
     </div>
 
     <div class="pregunta">
@@ -119,7 +127,7 @@
             <li><label><input type="radio" name="p8" value="b" data-correcta="false"> b) Se mantiene estático e inmutable desde la infancia</label></li>
             <li><label><input type="radio" name="p8" value="c" data-correcta="false"> c) Descarta información antigua de forma aleatoria</label></li>
         </ul>
-        <p class="feedback" id="feedback8"></p>
+     
     </div>
     
     <button id="btnResultado">Ver mi resultado</button>
@@ -136,23 +144,8 @@
 </main>
 
 <script>
-    document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            const nombre = this.name;
-            const numero = nombre.replace('p', '');
-            const feedback = document.getElementById('feedback' + numero);
-            
-            if (this.dataset.correcta === 'true') {
-                feedback.textContent = '✅ ¡Correcto!';
-                feedback.style.color = 'green';
-            } else {
-                feedback.textContent = '❌ Incorrecto, intentá de nuevo.';
-                feedback.style.color = 'red';
-            }
-        });
-    });
-
-    document.getElementById('btnResultado').addEventListener('click', function() {
+ 
+document.getElementById('btnResultado').addEventListener('click', function() {
         const preguntas = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'];
         let respondidas = 0;
         let correctas = 0;
@@ -179,7 +172,16 @@
 
         document.getElementById('resultado-final').innerHTML = 
             '<h3>Tu resultado: ' + correctas + '/8</h3><p>' + mensaje + '</p>';
+
+        const formData = new FormData();
+        formData.append('puntos', correctas);
+
+        fetch('guardar_resultado.php', {
+            method: 'POST',
+            body: formData
+        });
     });
+    
 </script>
 
       <footer class="footer-principal">

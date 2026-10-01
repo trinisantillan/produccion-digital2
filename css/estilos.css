@@ -2148,7 +2148,6 @@ footer {
     }
 }
 
-/* Contenedor principal para centrar la tarjeta en la pantalla */
 .contenedor-registro {
     display: flex;
     flex-direction: column;
@@ -2158,15 +2157,13 @@ footer {
     min-height: calc(100vh - 120px);
 }
 
-/* Título */
 .contenedor-registro h2 {
-    color: #0b2545; /* Azul oscuro del header */
+    color: #0b2545; 
     margin-bottom: 25px;
     font-size: 2rem;
     text-align: center;
 }
 
-/* Tarjeta del formulario */
 .contenedor-registro form {
     background: #ffffff;
     padding: 35px 30px;
@@ -2179,7 +2176,6 @@ footer {
     gap: 12px;
 }
 
-/* Etiquetas de los campos */
 .contenedor-registro label {
     font-size: 0.9rem;
     font-weight: 600;
@@ -2187,7 +2183,6 @@ footer {
     margin-top: 4px;
 }
 
-/* Inputs de texto, email y password */
 .contenedor-registro input {
     width: 100%;
     padding: 12px 14px;
@@ -2204,7 +2199,6 @@ footer {
     box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2);
 }
 
-/* Botón de envío */
 .contenedor-registro .btn-registro {
     margin-top: 15px;
     padding: 12px;

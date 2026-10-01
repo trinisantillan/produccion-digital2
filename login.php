@@ -10,27 +10,19 @@ if (isset($_SESSION['usuario'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>NeuroHabits | Hackeá tu Mente</title>
+    <title>Iniciar Sesión | NeuroHabits</title>
     <link href="css/estilos.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </head>
 <body>
 
   <header class="header-principal">
-
        <div class="header-top">
            <img src="imagenes/logoneuro.webp" alt="Logo NeuroHabits">
            <h1>NeuroHabits</h1>
        </div>
        
        <nav class="nav-principal">
-           <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-           <label for="menu-toggle" class="hamburger-btn">
-               <span></span>
-               <span></span>
-               <span></span>
-           </label>
-
            <ul class="nav-menu">
                <li><a href="index.php">Inicio</a></li> 
                <li><a href="que.php">¿Qué es?</a></li>
@@ -38,36 +30,27 @@ if (isset($_SESSION['usuario'])) {
                <li><a href="estudio.php">Estudio y memoria</a></li>
                <li><a href="preguntas.php">FAQ</a></li>
                <li><a href="quiz.php">Quiz</a></li> 
-                <?php if (isset($_SESSION['usuario'])): ?>
-        <li><a href="perfil.php" style="color: #64b5f6; font-weight: bold;">Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a></li>
-    <?php else: ?>
-        <li><a href="registro.php">Iniciar sesión</a></li>
-    <?php endif; ?>
-</ul>
+               <li><a href="login.php" class="active">Iniciar sesión</a></li>
            </ul>
        </nav>
    </header>
 
    <main class="contenedor-registro">
-    <h2>Crea tu cuenta</h2>
+    <h2>Ingresá a tu cuenta</h2>
     
-    <form action="procesar_registro.php" method="POST">
-    
-        <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
+    <form action="procesar_login.php" method="POST">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
 
-    <label for="email">Correo electrónico:</label>
-    <input type="email" id="email" name="email" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
 
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" required>
-
-    <button type="submit" class="btn-registro">Registrarme</button>
-    <p style="text-align: center; margin-top: 20px; color: #334155;">
-    ¿Ya tenés una cuenta? <a href="login.php" style="color: #00bcd4; font-weight: bold;">Iniciá sesión acá</a>
-</p>
-
+        <button type="submit" class="btn-registro">Ingresar</button>
     </form>
+
+    <p style="text-align: center; margin-top: 20px; color: #334155;">
+        ¿No tenés cuenta todavía? <a href="registro.php" style="color: #00bcd4; font-weight: bold;">Registrate acá</a>
+    </p>
 </main>
 
     <footer class="footer-principal">

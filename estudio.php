@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: registro.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,13 +31,18 @@
         </label>
 
         <ul class="nav-menu">
-    <li><a href="index.html">Inicio</a></li> 
-    <li><a href="que.html">¿Qué es?</a></li>
-    <li><a href="cc.html">Ciencias Cognitivas</a></li>
-    <li><a href="estudio.html" class="active">Estudio y memoria</a></li> 
-    <li><a href="preguntas.html">FAQ</a></li>
-    <li><a href="quiz.html">Quiz</a></li> 
-    <li><a href="registro.html">Iniciar sesión</a> </li> 
+    <li><a href="index.php">Inicio</a></li> 
+    <li><a href="que.php">¿Qué es?</a></li>
+    <li><a href="cc.php">Ciencias Cognitivas</a></li>
+    <li><a href="estudio.php" class="active">Estudio y memoria</a></li> 
+    <li><a href="preguntas.php">FAQ</a></li>
+    <li><a href="quiz.php">Quiz</a></li> 
+    <?php if (isset($_SESSION['usuario'])): ?>
+    <li><a href="perfil.php" style="color: #64b5f6; font-weight: bold;">Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a></li>
+    <li><a href="logout.php" style="color: #ff7675;">Salir</a></li>
+<?php else: ?>
+    <li><a href="login.php">Iniciar sesión</a></li>
+<?php endif; ?>
 </ul>
     </nav>
 </header>
