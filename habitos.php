@@ -811,8 +811,6 @@ body {
 
     </div>
 
-    <!-- CREAR CALENDARIO -->
-
     <section class="panel">
 
         <h2>Crear un nuevo calendario</h2>
@@ -943,8 +941,6 @@ body {
 
     <?php endif; ?>
 
-    <!-- RESUMEN DE LA MATERIA -->
-
     <?php if ($plan_actual): ?>
 
         <section class="panel">
@@ -1010,8 +1006,6 @@ body {
 
         </section>
 
-        <!-- CALENDARIO SEMANAL -->
-
         <section class="panel" id="semana">
 
             <h2>Tu semana de estudio</h2>
@@ -1070,8 +1064,6 @@ body {
 
             </div>
 
-            <!-- DETALLE DEL DÍA SELECCIONADO -->
-
             <?php foreach ($dias as $d): ?>
 
                 <?php
@@ -1117,8 +1109,6 @@ body {
                         >
 
                         <div class="tareas-grid">
-
-                            <!-- TAREA 1 Y TAREA 2 -->
 
                             <?php foreach ([1 => $t1, 2 => $t2] as $n => $t): ?>
 
@@ -1191,8 +1181,6 @@ body {
 
 </main>
 
-<!-- FOOTER -->
-
 <footer>
 
     <div class="contenedor-footer">
@@ -1240,8 +1228,6 @@ body {
     </div>
 
 </footer>
-
-<!-- CAMBIAR ENTRE DÍAS SIN RECARGAR LA PÁGINA -->
 
 <script>
 

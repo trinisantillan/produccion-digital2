@@ -175,7 +175,6 @@ if (!isset($_SESSION['usuario'])) {
                 <h2>¿Tenés alguna otra duda?</h2>
                 <p>Dejanos tu consulta y nuestro equipo de ciencias cognitivas la va a responder a la brevedad.</p>
                 
-                <!-- Formulario conectado a procesar_pregunta.php -->
                 <form action="procesar_pregunta.php" method="POST" class="formulario-pregunta">
                     <div class="grupo-input">
                         <label for="nombre">Nombre</label>
