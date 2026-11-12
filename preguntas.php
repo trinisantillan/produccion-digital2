@@ -37,6 +37,7 @@ if (!isset($_SESSION['usuario'])) {
             <li><a href="estudio.php">Estudio y memoria</a></li>
             <li><a href="preguntas.php" class="active">FAQ</a></li> 
             <li><a href="quiz.php">Quiz</a></li>
+             <li><a href="habitos.php">Mis hábitos</a></li>
             <?php if (isset($_SESSION['usuario'])): ?>
                 <li><a href="perfil.php" style="color: #64b5f6; font-weight: bold;">Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a></li>
                 <li><a href="logout.php" style="color: #ff7675;">Salir</a></li>
