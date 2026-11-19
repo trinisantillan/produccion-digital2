@@ -443,12 +443,6 @@ $porcentaje_estudio = $total_tareas > 0
             <li><a href="habitos.php">Mis hábitos</a></li>
 
             <li>
-                <a href="habitos.php">
-                    Mi calendario
-                </a>
-            </li>
-
-            <li>
                 <a
                     href="perfil.php"
                     class="active"

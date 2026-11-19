@@ -749,8 +749,9 @@ body {
 <header class="header-principal">
 
     <div class="header-top">
-        <h1>🧠 NeuroHabits</h1>
-    </div>
+           <img src="imagenes/logoneuro.webp" alt="Logo NeuroHabits">
+           <h1>NeuroHabits</h1>
+       </div>
 
     <nav class="nav-principal">
 
@@ -777,7 +778,7 @@ body {
 
             <li>
                 <a href="habitos.php" class="active">
-                    Mi calendario
+                    Mis hábitos
                 </a>
             </li>
 
